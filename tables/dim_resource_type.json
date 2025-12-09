@@ -1,0 +1,15 @@
+{
+  "id": "CwNLFK2gP5VdP-ku2RUyp",
+  "name": "dim resource type",
+  "fields": [
+    { "id": "h6Wl0h8Ie6DrQKcv1jstV", "name": "resource_key", "type": "INTEGER", "primary": true, "unique": true, "notNull": true, "increment": true },
+    { "id": "DaRc_AQisU1FCXn1jBGsQ", "name": "resource_code", "type": "NUMBER" },
+    { "id": "hUK2FGPIvEuJ4cW74H-ox", "name": "resource_name", "type": "VARCHAR2", "size": 255 },
+    { "id": "K5oPdCD865aS2ArbGdeNy", "name": "resource_category", "type": "VARCHAR2", "size": 255 },
+    { "id": "rf9efcI-4Ul69Sq2tYExV", "name": "measurement_unit", "type": "CHAR", "size": 1 },
+    { "id": "GkCTXjG6MPBdJQezg9vYM", "name": "cost_indicator", "type": "CHAR", "size": 1 }
+  ],
+  "indices": [],
+  "comment": "",
+  "database": "oraclesql"
+}

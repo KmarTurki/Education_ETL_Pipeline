@@ -1,0 +1,13 @@
+{
+  "id": "1r0DNvI52p788GlaLkFnM",
+  "name": "fact education metrics",
+  "fields": [
+    { "id": "dwYhM3TekzRMikHWgTeMt", "name": "country_key ", "type": "NUMBER", "primary": false, "unique": false, "notNull": false, "increment": false },
+    { "id": "mxdF4IJfvvFmGjWBrM6Hp", "name": "time_key", "type": "DATE", "primary": false, "unique": false, "notNull": false, "increment": false },
+    { "id": "ELrdvR3tzT3u7-sbdJZUJ", "name": "indicator_key", "type": "NUMBER", "primary": false, "unique": false, "notNull": false, "increment": false },
+    { "id": "rf3ClIvGi-i0FT8o3C9na", "name": "metric id", "type": "INTEGER", "primary": true, "unique": true, "notNull": true, "increment": true }
+  ],
+  "indices": [ { "name": "fact education metrics_index_0", "unique": false, "fields": ["country_key ", "time_key", "indicator_key"] } ],
+  "comment": "",
+  "database": "oraclesql"
+}

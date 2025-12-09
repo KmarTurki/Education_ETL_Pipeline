@@ -1,0 +1,13 @@
+{
+  "id": "FHDHHvVygx3-7ufDSTN12",
+  "name": "fact education impacts",
+  "fields": [
+    { "id": "RznANihj3jxwg984vartq", "name": "impact id ", "type": "INTEGER", "primary": true, "unique": true, "notNull": true, "increment": true },
+    { "id": "cg4Tkwq1sd0u788jchpSV", "name": "country key", "type": "NUMBER", "primary": false },
+    { "id": "0BOc3kCv_txwpKPeVrvGf", "name": "time key ", "type": "DATE", "primary": false },
+    { "id": "PveZmEnJl16viIxvmJFih", "name": "impact type key ", "type": "VARCHAR2", "size": 255, "primary": false }
+  ],
+  "indices": [],
+  "comment": "",
+  "database": "oraclesql"
+}

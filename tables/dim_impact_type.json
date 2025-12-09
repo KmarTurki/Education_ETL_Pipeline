@@ -1,0 +1,15 @@
+{
+  "id": "fXsmUKd7OHTt_4srC8w8d",
+  "name": "dim impact type",
+  "fields": [
+    { "id": "nLq2hbDHYxHJvA8J0nWd4", "name": "impact_type_key", "type": "INTEGER", "primary": true, "unique": true, "notNull": true, "increment": true },
+    { "id": "OcIwIkmBcExX-uSIDHL-I", "name": "impact_code", "type": "NUMBER" },
+    { "id": "-INU0AK3dpdkA7EQZ5z-I", "name": "impact_name", "type": "VARCHAR2", "size": 255 },
+    { "id": "S75sP6Fqe34aaiKccqU0h", "name": "impact_category", "type": "VARCHAR2", "size": 255 },
+    { "id": "qH8-tvw2Bp0eMThs0N1mW", "name": "measurement_scale", "type": "NUMBER" },
+    { "id": "Yy4MiPtfmmKDus_5eEOqT", "name": "interpretation_guideline", "type": "CHAR", "size": 1 }
+  ],
+  "indices": [],
+  "comment": "",
+  "database": "oraclesql"
+}

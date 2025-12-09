@@ -1,0 +1,17 @@
+{
+  "id": "PAEJr_e-FFApXHQpPLaXk",
+  "name": "dim country",
+  "fields": [
+    { "id": "xsmvB0EcthjFPILdsHmhH", "name": "country key", "type": "INTEGER", "primary": true, "unique": true, "notNull": true, "increment": true },
+    { "id": "Db_NhiNqkTVqfE867csCj", "name": "country code ", "type": "NUMBER" },
+    { "id": "l0vfFH2NbnpmET4laXZvH", "name": "country name", "type": "VARCHAR2", "size": 255 },
+    { "id": "CKNyRRnVTCLH4B2k1MOAP", "name": "region", "type": "VARCHAR2", "size": 255 },
+    { "id": "mr0r-YueR_pNur4n0JuSz", "name": "continent", "type": "VARCHAR2", "size": 255 },
+    { "id": "SVqkULXl5PmQ827LHCgwv", "name": "income level", "type": "FLOAT" },
+    { "id": "etd-f221NeogVqflFEvvn", "name": "population", "type": "LONG" },
+    { "id": "PFiIxDsT_MwbiMJjafOWy", "name": "gdp_per_capital", "type": "FLOAT" }
+  ],
+  "indices": [],
+  "comment": "",
+  "database": "oraclesql"
+}

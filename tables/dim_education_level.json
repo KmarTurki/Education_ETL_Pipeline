@@ -1,0 +1,16 @@
+{
+  "id": "SDQFFmzgEIBwCvNaRRVHT",
+  "name": "dim education level",
+  "fields": [
+    { "id": "WMyajf0UgFvnk3UQYB1Zy", "name": "education_level_key", "type": "INTEGER", "primary": true, "unique": true, "notNull": true, "increment": true },
+    { "id": "aKupRJpDMjYpxWpfGpVdb", "name": "level_code", "type": "NUMBER" },
+    { "id": "7kyKovyFLML7JIzIoMvkb", "name": "level_name", "type": "VARCHAR2", "size": 255 },
+    { "id": "NRF0-kOzarAlxSvE2KA53", "name": "level_order", "type": "NUMBER" },
+    { "id": "cw0IFIXy5YCkcFhoecHE7", "name": "typical_age_range", "type": "INTERVAL" },
+    { "id": "QeWEiu_rxNxCrLSfbvQeu", "name": "duration_years", "type": "NUMBER" },
+    { "id": "UMoD8SRnuQJbTa0AToTM6", "name": "isced_classification", "type": "VARCHAR2", "size": 255 }
+  ],
+  "indices": [],
+  "comment": "",
+  "database": "oraclesql"
+}

@@ -1,0 +1,17 @@
+{
+  "id": "DuEIzU9XFGw6y3SS29IeD",
+  "name": "dim indicator",
+  "fields": [
+    { "id": "FsNWepv5fFCnVbewIN8hp", "name": "indicator key", "type": "INTEGER", "primary": true, "unique": true, "notNull": true, "increment": true },
+    { "id": "45aCfWpvifjlOCXi137aA", "name": "indicator_code", "type": "NUMBER" },
+    { "id": "TPt254_ddGaUD7p3pRjxH", "name": "indicator_name", "type": "VARCHAR2", "size": 255 },
+    { "id": "qvrqXa5LSEv-H3VRXdkrP", "name": "indicator_category", "type": "VARCHAR2", "size": 255 },
+    { "id": "rrkDnpMADpRHN5a4w2CTv", "name": " indicator_subcategory", "type": "VARCHAR2", "size": 255 },
+    { "id": "KXDHljDJXrSXYfkF6pwt7", "name": "measurement_unit", "type": "VARCHAR2", "size": 255 },
+    { "id": "wGVADVANjKNXG9uCC3Y0S", "name": "calculation_method", "type": "CHAR", "size": 1 },
+    { "id": "yUl-mz5B8priF0KsneV3G", "name": "data_source", "type": "CHAR", "size": 1 }
+  ],
+  "indices": [],
+  "comment": "",
+  "database": "oraclesql"
+}
