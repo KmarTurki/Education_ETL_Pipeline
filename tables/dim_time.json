@@ -2,13 +2,44 @@
   "id": "YiLO-iQW77JFVWMcL1ELy",
   "name": "dim time",
   "fields": [
-    { "id": "t2yx_iyvmU9WYpkwvJ-rp", "name": "time key", "type": "NUMBER", "primary": true, "unique": true, "notNull": true },
-    { "id": "_wifRH9w-KyWGNPvLkW01", "name": "year", "type": "NUMBER" },
-    { "id": "TG2kEhDOi_1EgWHcMuMVH", "name": "quarter", "type": "NUMBER" },
-    { "id": "0g9zkG_b1RXqx9nn7-3vB", "name": "semester", "type": "NUMBER" },
-    { "id": "LyUlyFubCPtRcgFru0hYc", "name": "decade", "type": "NUMBER" },
-    { "id": "IQx552kzbtkn0JcMdH8A5", "name": "is_current_year", "type": "NUMBER" },
-    { "id": "nTaL84C0gh6y8cM4VTGCp", "name": "fiscal_year", "type": "NUMBER" }
+    {
+      "id": "t2yx_iyvmU9WYpkwvJ-rp",
+      "name": "time_key",
+      "type": "INTEGER",
+      "primary": true,
+      "unique": true,
+      "notNull": true
+    },
+    {
+      "id": "_wifRH9w-KyWGNPvLkW01",
+      "name": "year",
+      "type": "INTEGER"
+    },
+    {
+      "id": "TG2kEhDOi_1EgWHcMuMVH",
+      "name": "quarter",
+      "type": "INTEGER"
+    },
+    {
+      "id": "0g9zkG_b1RXqx9nn7-3vB",
+      "name": "semester",
+      "type": "INTEGER"
+    },
+    {
+      "id": "LyUlyFubCPtRcgFru0hYc",
+      "name": "decade",
+      "type": "INTEGER"
+    },
+    {
+      "id": "IQx552kzbtkn0JcMdH8A5",
+      "name": "is_current_year",
+      "type": "BIT"
+    },
+    {
+      "id": "nTaL84C0gh6y8cM4VTGCp",
+      "name": "fiscal_year",
+      "type": "INTEGER"
+    }
   ],
   "indices": [],
   "comment": "",

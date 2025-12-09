@@ -1,76 +1,67 @@
 import json
 
-def load_data(file_path='data_warehouse.json'):
-    """
-    Load the education metrics data from the JSON file.
-    """
-    with open(file_path, 'r') as f:
-        data = json.load(f)
-    return data['fact_tables']['education_metrics']
-
-def filter_data(records, country=None, year=None, indicator=None):
-    """
-    Filter the records based on country, year, and indicator.
-    - country: string, e.g., 'USA'
-    - year: string or int, e.g., '2022' or 2022
-    - indicator: string, e.g., 'enrollment_primary'
-    """
-    filtered = records
-    if country:
-        filtered = [r for r in filtered if r['country'] == country]
-    if year:
-        year_str = str(year)
-        filtered = [r for r in filtered if r['year'] == year_str]
-    if indicator:
-        filtered = [r for r in filtered if r['indicator'] == indicator]
-    return filtered
-
-def compute_aggregate(records, agg_func):
-    """
-    Compute aggregate on the 'value' field of the records.
-    agg_func: 'average', 'sum', 'min', 'max'
-    """
-    if not records:
+def load_warehouse():
+    try:
+        with open('data_warehouse.json', 'r', encoding='utf-8') as f:
+            return json.load(f)
+    except FileNotFoundError:
+        print("Error: data_warehouse.json not found.")
         return None
-    values = [r['value'] for r in records]
-    if agg_func == 'average':
-        return sum(values) / len(values)
-    elif agg_func == 'sum':
-        return sum(values)
-    elif agg_func == 'min':
-        return min(values)
-    elif agg_func == 'max':
-        return max(values)
+
+def main():
+    warehouse = load_warehouse()
+    if not warehouse: return
+
+    print("Data Warehouse Query Interface")
+    print("------------------------------")
+    
+    # Check for available tables
+    print("Available Tables:")
+    for key in warehouse.keys():
+        print(f" - {key} ({len(warehouse[key])} records)")
+    print()
+
+    # --- Query 1: Get Literacy Rate for Tunisia (Example of Join Logic) ---
+    print("\n[Query 1] Fetching Literacy Rate for Tunisia (Combining Facts & Dims)...")
+    
+    # 1. Find Tunisia Key
+    tun_key = next((item['country_key'] for item in warehouse['dim_country'] if item['country_name'] == 'Tunisia'), None)
+    if not tun_key:
+        print("Tunisia not found.")
+        return
+
+    # 2. Find Indicator Key for "literacy_rate"
+    lit_key = next((item['indicator_key'] for item in warehouse['dim_indicator'] if item['indicator_name'] == 'literacy_rate'), None)
+    
+    # 3. Query Fact Table
+    if tun_key and lit_key:
+        results = [
+            f for f in warehouse['fact_education_metrics'] 
+            if f['country_key'] == tun_key and f['indicator_key'] == lit_key
+        ]
+        
+        # 4. Resolve Time Key to Year
+        for res in results:
+            year = next((t['year'] for t in warehouse['dim_time'] if t['time_key'] == res['time_key']), "Unknown")
+            print(f" - Year: {year}, Value: {res['value']}%")
     else:
-        raise ValueError("Invalid aggregate function. Choose from 'average', 'sum', 'min', 'max'")
+        print("Could not resolve keys for query.")
 
-def get_unique_values(records, field):
-    """
-    Get unique values for a given field (e.g., 'country', 'year', 'indicator').
-    """
-    return list(set(r[field] for r in records))
+    # --- Query 2: Get Innovation Impact for Tunisia ---
+    print("\n[Query 2] Fetching Innovation Impact for Tunisia...")
+    
+    # Find Impact Type Key
+    inn_key = next((item['impact_type_key'] for item in warehouse['dim_impact_type'] if item['impact_name'] == 'innovation'), None)
 
-# Example usage
+    if tun_key and inn_key:
+        results = [
+            f for f in warehouse['fact_education_impacts']
+            if f['country_key'] == tun_key and f['impact_type_key'] == inn_key
+        ]
+        
+        for res in results:
+             year = next((t['year'] for t in warehouse['dim_time'] if t['time_key'] == res['time_key']), "Unknown")
+             print(f" - Year: {year}, Value: {res['value']}")
+
 if __name__ == "__main__":
-    # Load data
-    records = load_data()
-
-    # Example 1: Filter by country and indicator, compute average
-    filtered = filter_data(records, country='USA', indicator='enrollment_primary')
-    avg = compute_aggregate(filtered, 'average')
-    print(f"Average enrollment_primary for USA: {avg}")
-
-    # Example 2: Filter by year and indicator, compute sum
-    filtered = filter_data(records, year=2022, indicator='dropout_rate')
-    total = compute_aggregate(filtered, 'sum')
-    print(f"Total dropout_rate in 2022: {total}")
-
-    # Example 3: Get all unique countries
-    countries = get_unique_values(records, 'country')
-    print(f"Unique countries: {countries}")
-
-    # Example 4: Filter by indicator, compute min and max
-    filtered = filter_data(records, indicator='literacy_rate')
-    min_val = compute_aggregate(filtered, 'min')
-    max_val = compute_aggregate(filtered, 'max')
-    print(f"Min literacy_rate: {min_val}, Max literacy_rate: {max_val}")
+    main()
