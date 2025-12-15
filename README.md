@@ -1,56 +1,76 @@
-# Education ETL Pipeline / Data Warehouse
+# Education Data Warehouse & ETL Pipeline
 
-This project implements an ETL (Extract, Transform, Load) pipeline to aggregate education data from multiple sources (World Bank API, Web Scraping, Kaggle) into a Star Schema Data Warehouse.
+## Overview
+This project is a comprehensive data engineering solution designed to aggregate, transform, and analyze global and regional education statistics. It utilizes a unified **ETL (Extract, Transform, Load)** pipeline to integrate data from CSV sources and the **World Bank API** into a **Star Schema Data Warehouse**.
 
-## Project Structure
+The primary goal is to enable multi-dimensional analysis of educational metrics (literacy, enrollment, graduation rates) against socio-economic impacts (innovation, employment) across different countries and time periods.
 
-### 1. Source Data & Extraction (`scraper.py`)
-- Fetches global education data (Literacy, Enrollment, etc.) using the World Bank API.
-- Scrapes Tunisia-specific data (Infrastructure, Budget, Suicide Rates) using proxy indicators.
-- Scrapes unstructured text data from educational websites (UNESCO, OECD).
-- Outputs raw data to `scraped_data.json`.
+## Architecture
 
-### 2. Integration & Transformation (`integrate_data.py`)
-- Reads raw `scraped_data.json` and local CSVs.
-- Transforms data into a Star Schema with **2 Fact Tables** and **4 Dimension Tables**.
-- Generates Surrogate Keys for referential integrity.
-- Outputs the structured data to `data_warehouse.json`.
+The project follows a simplified, unified workflow:
 
-### 3. Analysis (`query_data.py`)
-- Provides a Python interface to query the Data Warehouse.
-- Demonstrates how to join Fact and Dimension tables using keys to retrieve meaningful insights.
+1.  **ETL Pipeline (`etl_pipeline.py`)**: 
+    *   **Extract**: Reads education data from `education_data_final.csv` and fetches impact data live from the World Bank API.
+    *   **Transform**: Normalizes data into Dimension and Fact tables. Standardizes country codes and impact types.
+    *   **Load**: Saves the structured data into `data_warehouse.json`.
+
+2.  **Analysis Interface (`query_data.py`)**:
+    *   Provides a Python-based interface to query the JSON-based warehouse.
+    *   Demonstrates complex joining logic between Facts (Metrics, Impacts) and Dimensions (Country, Time, Indicator).
 
 ## Data Warehouse Schema
 
-### Fact Tables
-1.  **`fact_education_metrics`**: Core education statistics.
-    *   Columns: `metric_id`, `country_key`, `time_key`, `indicator_key`, `value`
-2.  **`fact_education_impacts`**: Socio-economic impacts.
-    *   Columns: `impact_id`, `country_key`, `time_key`, `impact_type_key`, `value`
+The data warehouse is designed as a **Star Schema** to optimize query performance and analytic simplicity.
 
-### Dimension Tables
-1.  **`dim_country`**: `country_key`, `country_code`, `country_name`, `region`
-2.  **`dim_time`**: `time_key` (Year), `year`, `decade`
-3.  **`dim_indicator`**: `indicator_key`, `indicator_name`, `category`
-4.  **`dim_impact_type`**: `impact_type_key`, `impact_name`, `category`
+### Fact Tables (Measurements)
+*   **`fact_education_metrics`**: Scores from the CSV dataset.
+    *   `metric_id`, `country_key`, `time_key`, `indicator_key`, `value`
+*   **`fact_education_impacts`**: Scores fetched of World Bank API.
+    *   `impact_id`, `country_key`, `time_key`, `impact_type_key`, `value`
 
-## Setup & Usage
+### Dimension Tables (Context)
+*   **`dim_country`**: Geographic context (`country_code`, `country_name`).
+*   **`dim_time`**: Temporal context (Year).
+*   **`dim_indicator`**: Metadata for educational metrics (e.g., "School enrollment").
+*   **`dim_impact_type`**: Metadata for impacts (e.g., "Innovation", "Youth Unemployment").
 
-1.  **Install Dependencies**:
+## Setup & Installation
+
+### Prerequisites
+*   Python 3.8+
+*   pip package manager
+
+### Installation
+1.  Clone the repository:
     ```bash
-    pip install pandas requests beautifulsoup4 lxml
+    git clone <repository-url>
+    cd DataWarehouse
     ```
 
-2.  **Run the Pipeline**:
+2.  Install dependencies:
     ```bash
-    # Step 1: Scrape Data
-    python scraper.py
-    
-    # Step 2: Build Warehouse
-    python integrate_data.py
+    pip install -r requirements.txt
     ```
 
-3.  **Query Data**:
-    ```bash
-    python query_data.py
-    ```
+## Usage Instructions
+
+### 1. Run the ETL Pipeline
+This single command builds the entire warehouse from scratch.
+```bash
+cd src
+python etl_pipeline.py
+```
+*   *Action*: Reads CSV from `../data/`, queries World Bank API, and saves to `../data/data_warehouse.json`.
+
+### 2. Query the Data
+Run the analysis script to see example queries on the warehouse.
+```bash
+python query_data.py
+```
+*   *Output*: Will show data availability and example insights (e.g., "School Enrollment in Tunisia", "Innovation Trends").
+
+## Troubleshooting
+
+*   **`data_warehouse.json` not found**: Run `etl_pipeline.py` first.
+*   **API Timeouts**: `etl_pipeline.py` queries the World Bank API. If it fails, check your internet connection and try again. It tracks progress and handles batches.
+

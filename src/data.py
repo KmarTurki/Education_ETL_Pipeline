@@ -9,12 +9,12 @@ api.authenticate()
 datasets = [
     {
         "slug": "theworldbank/education-statistics",
-        "save_path": "data/global_perf",
+        "save_path": "../data/global_perf",
         "unzip": True
     },
     {
         "slug": "theworldbank/world-development-indicators",
-        "save_path": "data/wdi_2021",
+        "save_path": "../data/wdi_2021",
         "unzip": True
     }
 ]
